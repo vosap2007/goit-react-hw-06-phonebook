@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import contactsActions from "../redux/contacts/contacts-actions";
 import styles from '../css/PhoneBook.module.css';
 
-export default class Input extends Component {
+class Input extends Component {
   state = {
     name: '',
     number: ''
@@ -17,7 +19,7 @@ export default class Input extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onAddContact(this.state);
+   // this.props.onAddContact(this.state);
 
     this.setState({name: '',
     number: ''});
@@ -50,3 +52,9 @@ export default class Input extends Component {
     ); 
   }
 }
+
+const mapDispatchToProps = dispatcs => ({
+  onAddContact: ({ name, number }) => dispatcs(contactsActions.addContacts({ name, number })),
+});
+
+export default connect(null, mapDispatchToProps)(Input);

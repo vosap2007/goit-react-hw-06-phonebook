@@ -1,5 +1,7 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { connect } from 'react-redux';
+import contactsActions from "../redux/contacts/contacts-actions";
 import styles from '../css/PhoneBook.module.css'; 
 
 const Contacts = ({contacts, onRemoveContacts}) => (
@@ -23,4 +25,20 @@ const Contacts = ({contacts, onRemoveContacts}) => (
         </TransitionGroup>
 );
 
-export default Contacts;
+const getVisibleContacts = (allContacts, filter) => { 
+    const normalizedFilter = filter.toLowerCase();
+
+    return allContacts.filter(({text}) =>
+    text.toLowerCase().includes(normalizedFilter,
+    ));
+  };
+
+const mapStateToProps = state => ({
+    contacts: getVisibleContacts(state.contacts.filter, state.contacts.items)
+})
+
+  const mapDispatchToProps = dispatcs => ({
+    onRemoveContacts: (id) => dispatcs(contactsActions.deleteContacts(id)),
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
