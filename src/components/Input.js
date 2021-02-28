@@ -6,7 +6,8 @@ import styles from '../css/PhoneBook.module.css';
 class Input extends Component {
   state = {
     name: '',
-    number: ''
+    number: '',
+    error: true
   };
 
   handleInputChange = e => {
@@ -16,13 +17,24 @@ class Input extends Component {
      });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
-   // this.props.onAddContact(this.state);
+    const contacts = this.props.contacts;
 
-    this.setState({name: '',
-    number: ''});
+    if (contacts.some(item => this.state.name === item.name)) {
+        { this.props.updateData(this.state.error)};
+
+      return;
+    } 
+
+    if ((this.state.name||this.state.number)!== '') {
+     this.props.onAddContact(this.state);
+     this.setState({name: '', number: ''}); 
+     return;
+    }
+
+    { this.props.updateData(this.state.error)};
    };
 
    render() { 
@@ -53,8 +65,12 @@ class Input extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+});
+
 const mapDispatchToProps = dispatcs => ({
   onAddContact: ({ name, number }) => dispatcs(contactsActions.addContacts({ name, number })),
 });
 
-export default connect(null, mapDispatchToProps)(Input);
+export default connect(mapStateToProps, mapDispatchToProps)(Input);

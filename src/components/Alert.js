@@ -1,10 +1,10 @@
-/*import React from "react";
+import React from "react";
 import styles from '../css/PhoneBook.module.css'; 
 
 const Alert = () => (
    <div className={styles.boxAlert}>
-       <h2 className={styles.alert}>This contact already exists!</h2>
+       <h2 className={styles.alert}>Please enter the correct request!</h2>
    </div>
 );
 
-export default Alert;*/
+export default Alert;
