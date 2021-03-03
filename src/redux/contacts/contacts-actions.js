@@ -1,7 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 import { createAction } from '@reduxjs/toolkit';
 
-const addContacts =createAction('contacts/ADD', ({ name, number }) => {
+axios.defaults.baseURL = 'http://localhost:4040';
+
+const addContacts = ({ name, number }) => dispatch => {
+   axios.get
+}
+
+const addContacts = createAction('contacts/ADD', ({ name, number }) => {
    return {
       payload: {
          id: uuidv4(),

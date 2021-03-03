@@ -26,7 +26,7 @@ export default class App extends Component {
         }); 
     }, 3000);
  }
- 
+
   render() {
   return (
     <>
@@ -74,13 +74,3 @@ export default class App extends Component {
     );
   }
 }
-
-/*const mapStateToProps = state => ({
-  value: state.contacts.filter,
-});
-
-const mapDispatchToProps = dispatcs => ({
-  onAlert: ({ name, number }) => dispatcs(contactsActions.addContacts({ name, number })),
-});*/
-
-//export default connect(mapStateToProps, mapDispatchToProps)(App);
