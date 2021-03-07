@@ -1,3 +1,16 @@
 {
-    "contacts": []
-  }
+  "contacts": [
+    {
+      "name": "Владимир Удовиченко",
+      "number": "",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "name": "volodymyrvolodymyrovych",
+      "number": "0661192532",
+      "completed": false,
+      "id": 2
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import contactsActions from "../redux/contacts/contacts-actions";
+import contactsOperations from "../redux/contacts/contacts-operations";
 import styles from '../css/PhoneBook.module.css';
+import contactsSelectors from "../redux/contacts/contacts-selectors";
 
 class Input extends Component {
   state = {
@@ -66,11 +67,11 @@ class Input extends Component {
 }
 
 const mapStateToProps = state => ({
-  contacts: state.contacts.items,
+  contacts: contactsSelectors.getVisible(state),
 });
 
 const mapDispatchToProps = dispatcs => ({
-  onAddContact: ({ name, number }) => dispatcs(contactsActions.addContacts({ name, number })),
+  onAddContact: ({ name, number }) => dispatcs(contactsOperations.addContacts({ name, number })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Input);

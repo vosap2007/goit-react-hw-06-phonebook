@@ -1,10 +1,11 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from 'react-redux';
-import contactsActions from "../redux/contacts/contacts-actions";
+import contactsOperations from "../redux/contacts/contacts-operations";
 import styles from '../css/PhoneBook.module.css'; 
+import contactsSelectors from "../redux/contacts/contacts-selectors";
 
-const Contacts = ({contacts, removeContacts}) => (
+const Contacts = ({contacts, deleteContacts}) => (
 
     <TransitionGroup component='ul'>
         {contacts.map(contact =>
@@ -16,7 +17,7 @@ const Contacts = ({contacts, removeContacts}) => (
             <p className={styles.text}>{contact.name}: {contact.number}</p>
             <section className={styles.gid}>
                     <button type="button" className={styles.button}
-                        onClick={() => removeContacts(contact.id)}>
+                        onClick={() => deleteContacts(contact.id)}>
                         Delete</button>
             </section>
         </li>
@@ -25,20 +26,12 @@ const Contacts = ({contacts, removeContacts}) => (
         </TransitionGroup>
 );
 
-const getVisibleContacts = (filter, allContacts) => { 
-    const normalizedFilter = filter.toLowerCase();
-
-    return allContacts.filter(({name}) =>
-    name.toLowerCase().includes(normalizedFilter),
-    );
-  };
-
 const mapStateToProps = state => ({
-    contacts: getVisibleContacts(state.contacts.filter, state.contacts.items)
+    contacts: contactsSelectors.getVisibleContacts(state),
 })
 
   const mapDispatchToProps = dispatcs => ({
-    removeContacts: (id) => dispatcs(contactsActions.removeContacts(id)),
+    deleteContacts: (id) => dispatcs(contactsOperations.deleteContacts(id)),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
